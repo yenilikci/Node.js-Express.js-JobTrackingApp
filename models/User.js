@@ -31,6 +31,19 @@ userSchema.pre('save',async function(next){ //doc burada gelemez, this trick yap
     next()
 })
 
+//statik metot , daha sonra authController içerisinde çalıştırılacak, email kayıt, parola eşleşme kontrolü
+userSchema.statics.login = async function(email,parola){
+    const user = await this.findOne({email})
+    if(user){
+        const auth = await bcrypt.compare(parola,user.parola)
+        if(auth){
+            return user
+        }
+        throw Error('parola-hatası')
+    }
+    throw Error('email-hatası')
+}
+
 const User = mongoose.model('user',userSchema)
 
 module.exports = User
