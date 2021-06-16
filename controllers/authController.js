@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const jwt = require('jsonwebtoken')
 
 //valid hatalarını yakalayacağımız fonksiyon
 const hataYakala = (err) => {
@@ -22,6 +23,13 @@ const hataYakala = (err) => {
     
 } 
 
+const maxAge = 3*24*60*60*100 //3 gün
+
+//token oluşturma işlemi
+const createToken = (id) => {
+    return jwt.sign({id},'yenilikci',{expiresIn:maxAge}) //payload, secret key, kaç gün
+}
+
 //signup get işlemi için controller
 module.exports.signup_get = (req,res) => {
     res.render('signup')
@@ -41,6 +49,10 @@ module.exports.signup_post = async (req,res) => {
     //console.log(email,parola)
     try{
         const user = await User.create({email,parola})
+        //token
+        const token = createToken(user._id)
+        //cookie set
+        res.cookie('jwt',token,{httpOnly:true,maxAge:maxAge})
         res.status(201).json(user)
     }catch(error){
         //res.status(400).send('hata oluştu, kullanıcı oluşturulamadı ' + error)
