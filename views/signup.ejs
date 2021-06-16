@@ -15,10 +15,22 @@
 
 <script>
     const form = document.querySelector('form')
-    form.addEventListener('submit',(e) => {
+    form.addEventListener('submit',async (e) => {
         e.preventDefault()
         const email = form.email.value
         const parola = form.parola.value
-        console.log(email,parola);
+        //console.log(email,parola);
+
+        try {
+            //fetch ile /signup , post'u tetikleteceğiz
+            const res = await fetch('/signup',{
+                method:'POST',
+                body:JSON.stringify({email,parola}), //email ve parola json'a çevrilerek body'de gönderildi
+                headers:{'Content-Type':'application/json'}
+            })
+        } catch (error) {
+            console.log(error);
+        }
+
     })
 </script>
