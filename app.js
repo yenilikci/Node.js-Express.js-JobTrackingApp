@@ -2,6 +2,7 @@ const dotenv = require('dotenv')
 const express = require('express')
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoutes')
+const cookieParser =  require('cookie-parser')
 
 //express uygulaması 
 const app = express()
@@ -14,6 +15,9 @@ app.use(express.static('public'))
 
 //express json middleware -> req.body kullanımı için
 app.use(express.json())
+
+//cookie için middleware kullanımı
+app.use(cookieParser())
 
 //view engine ayarları
 app.set('view engine','ejs')
@@ -39,3 +43,24 @@ app.get('/works', (req,res) => {
 
 //routerları middleware olarak tanımlama
 app.use(authRoutes)
+
+/*cookie oluşturma işlemi
+app.get('/set-cookies',(req,res) => {
+    res.setHeader('Set-Cookie','yeni=true') //expires~max-age -> session
+    res.send('Cookie oluştu')
+})*/
+
+//cookie parser ile cookie oluşturma
+app.get('/set-cookies',(req,res) => {
+    res.cookie('yeni',false)
+    //opsiyonel ayarlarla cookie oluşturma
+    res.cookie('parola','12345',{maxAge:1000*60*60*24,httpOnly:true})
+    res.send('cookie oluştu')
+})
+
+//cookie çağıralım
+app.get('/get-cookies',(req,res) => {
+    const cookies = req.cookies
+    console.log(cookies.yeni);
+    res.json(cookies)
+})
