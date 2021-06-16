@@ -53,8 +53,8 @@
                 passwordError.textContent = data.errors.parola
             }
 
-            //data içerisinde _id bilgisi varsa kullanıcı oluşmuştur
-            if(data._id){
+            //data içerisinde user bilgisi varsa kullanıcı girişi olmuştur
+            if(data.user){
                 location.assign('/') //home sayfasına yönlendir
             }
 

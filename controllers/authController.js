@@ -19,6 +19,14 @@ const hataYakala = (err) => {
             errors[properties.path] = properties.message
         })
     }
+
+    if(err.message === 'email-hatası'){
+        errors.email = 'Email adresini yanlış girdiniz'
+    }
+    if(err.message === 'parola-hatası'){
+        errors.parola = 'Parolayı yanlış girdiniz'
+    }
+
     return errors
     
 } 
@@ -67,8 +75,20 @@ module.exports.login_post = async (req,res) => {
     
     //email ve parola yakala
     const {email,parola} = req.body
+    //console.log(email,parola)
+    //res.send('kullanıcı giriş')
 
-    console.log(email,parola)
-    res.send('kullanıcı giriş')
+    try {
+        const user = await User.login(email,parola)
+        //token oluşturma
+        const token = createToken(user._id)
+        //cookie oluşturma
+        res.cookie('jwt',token,{httpOnly:true,maxAge:maxAge})
+        res.status(200).json({user:user._id})
+    } catch (error) {
+        //hata varsa
+        const errors = hataYakala(error)
+        res.status(400).json({errors})
+    }
     
 }
