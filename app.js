@@ -29,6 +29,6 @@ app.get('/', (req,res) => {
     res.render('home')
 })
 
-app.get('/works',(req,res) => {
+app.get('/works', (req,res) => {
     res.render('works')
 })
