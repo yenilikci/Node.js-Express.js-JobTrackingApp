@@ -1,5 +1,24 @@
 <%- include('partials/header') %>
 
-<h1>Login</h1>
+<form action="/login" method="POST">
+    <h2>Kullanıcı Giriş</h2>
+    <label for="email">Email</label>
+    <input type="email" name="email" required>
+    <div class="email error"></div>
+    <label for="parola">Parola</label>
+    <input type="password" name="parola" required>
+    <div class="password error"></div>
+    <button type="submit">Giriş Yap</button>
+</form>
 
 <%- include('partials/footer') %>
+
+<script>
+    const form = document.querySelector('form')
+    form.addEventListener('submit',(e) => {
+        e.preventDefault()
+        const email = form.email.value
+        const parola = form.parola.value
+        console.log(email,parola);
+    })
+</script>

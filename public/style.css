@@ -79,7 +79,7 @@ button{
     border-radius: 36px;
     background-color: #C4E538;
     border: 0;
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-weight: 700;
     font-size: 0.8em;
     display: block;
