@@ -15,8 +15,20 @@
 
 <script>
     const form = document.querySelector('form')
+
+    //email error class'lı div
+    const emailError = document.querySelector('.email.error')
+    //password error class'lı div
+    const passwordError = document.querySelector('.password.error')
+
     form.addEventListener('submit',async (e) => {
+
+        //hata düzeltiğinde hata kalmasın diye text'leri boşaltma
+        emailError.textContent = ''
+        passwordError.textContent = ''
+
         e.preventDefault()
+        
         const email = form.email.value
         const parola = form.parola.value
         //console.log(email,parola);
@@ -28,6 +40,24 @@
                 body:JSON.stringify({email,parola}), //email ve parola json'a çevrilerek body'de gönderildi
                 headers:{'Content-Type':'application/json'}
             })
+
+
+            //res.json() ile dönen hataları yakalamak
+            const data = await res.json()
+            //console.log(data)
+
+            //hatalar varsa ilgili divlere yazalım
+            if(data.errors){
+                emailError.textContent = data.errors.email
+                passwordError.textContent = data.errors.parola
+            }
+
+            //data içerisinde _id bilgisi varsa kullanıcı oluşmuştur
+            if(data._id){
+                location.assign('/') //home sayfasına yönlendir
+            }
+
+
         } catch (error) {
             console.log(error);
         }
