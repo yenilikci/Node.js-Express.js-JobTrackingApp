@@ -16,6 +16,17 @@ const userSchema = new mongoose.Schema({
     }
 })
 
+//mongoose hooks ile kontrol, save işleminden sonra çalıştırılacak callback fonk
+userSchema.post('save',function(doc,next){
+    console.log('kaydedildikten sonra çalışacak',doc)
+    next() //next() işlemi devam ettirmek içindi
+})
+//kaydedilmeden hemen önce çalışacak
+userSchema.pre('save',function(next){ //doc burada gelemez, this trick yaparız
+    console.log('kaydedilmeden önce çalışacak',this) //this ile kaydedilecek veriye erişiriz
+    next()
+})
+
 const User = mongoose.model('user',userSchema)
 
 module.exports = User
