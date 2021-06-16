@@ -21,7 +21,7 @@ module.exports.signup_post = async (req,res) => {
         const user = await User.create({email,parola})
         res.status(201).json(user)
     }catch(error){
-        res.status(400).send('hata oluştu, kullanıcı oluşturulamadı')
+        res.status(400).send('hata oluştu, kullanıcı oluşturulamadı ' + error)
     }
     //res.send('yeni kullanıcı olusturuldu')
 }

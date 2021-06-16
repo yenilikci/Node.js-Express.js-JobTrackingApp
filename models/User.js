@@ -2,14 +2,14 @@ const mongoose = require('mongoose')
 const userSchema = new mongoose.Schema({
     email:{
         type:String,
-        required:true,
+        required:[true,'Mail adresini girmeniz zorunludur'], //mongoose validation
         unique:true,
         lowercase:true
     },
     parola:{
         type:String,
-        required:true,
-        minlength:6
+        required:[true,'Parolayı girmeniz zorunludur'], //mongoose validation
+        minlength:[6,'Minimum 6 karakterlik parola giriniz'] //mongoose validation
     }
 })
 
