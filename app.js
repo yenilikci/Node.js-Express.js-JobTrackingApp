@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoutes')
 const cookieParser =  require('cookie-parser')
+const {authControl} = require('./middleware/authMiddleware')
 
 //express uygulaması 
 const app = express()
@@ -32,12 +33,13 @@ mongoose.connect(process.env.dbURI,{
     })) //bağlantı başarılı ise serverı dinle
   .catch((err) => console.log(err)) //hata varsa yazdır
 
-
-app.get('/', (req,res) => {
+//middeware ile birlikte / get 
+app.get('/', authControl, (req,res) => {
     res.render('home')
 })
 
-app.get('/works', (req,res) => {
+//middeware ile birlikte /works get 
+app.get('/works', authControl, (req,res) => {
     res.render('works')
 })
 
