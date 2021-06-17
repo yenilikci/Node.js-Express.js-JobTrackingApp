@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<form action="/work-add" method="POST">
+    <h2>İş Oluştur</h2>
+
+    <label for="baslik">Başlık</label>
+    <input type="text" name="baslik" required>
+
+    <label for="aciklama">Açıklama</label>
+    <input type="text" name="aciklama" required>
+
+    <label for="baslama">Başlama Tarihi</label>
+    <input type="date" name="baslama" required>
+
+    <label for="bitis">Başlama Tarihi</label>
+    <input type="date" name="bitis" required>
+
+    <button type="submit">Oluştur</button>
+</form>
+
+<%- include('partials/footer') %>

@@ -2,34 +2,34 @@
 const User = require('../models/User')
 //token yakalama işlemi
 const jwtoken = require('jsonwebtoken')
-const authControl = (req,res,next) => {
+const authControl = (req, res, next) => {
     const token = req.cookies.jwt //jwt olarak saklamıştık ona erişelim
     //eğer token varsa
-    if(token){
+    if (token) {
         //verify ile bu token'ı açalım
-        jwtoken.verify(token,'yenilikci',(err,result) => {
-            if(err){
+        jwtoken.verify(token, 'yenilikci', (err, result) => {
+            if (err) {
                 //hata varsa giriş sayfasına geri yönlendir
                 //console.log(err.message)
                 res.redirect('/login')
-            }else {
+            } else {
                 //console.log(result)
                 next()
             }
         })
-    }else { //token bulunamadıysa
+    } else { //token bulunamadıysa
         res.redirect('/login')
     }
 }
 
 //kullanıcı kontrolü için yazdığım fonksiyon
-const userControl = (req,res,next) => {
+const userControl = (req, res, next) => {
     //tokendaki id ile modeli de kullanarak kullanıcı var mı diye bakacağız
     const token = req.cookies.jwt //jwt cookie'sine erişelim
-    if(token){
+    if (token) {
         //cookie'de saklanan token'ı çözümleme
-        jwtoken.verify(token,'yenilikci',async (err,result) => {
-            if(err){ //hata kontrolü
+        jwtoken.verify(token, 'yenilikci', async (err, result) => {
+            if (err) { //hata kontrolü
                 //lokal değişken tanımlama, null ata
                 res.locals.user = null //user lokal değişkeni
                 next() //işlem devam
@@ -39,11 +39,11 @@ const userControl = (req,res,next) => {
                 next()
             }
         })
-    }else { //eğer token yoksa
+    } else { //eğer token yoksa
         res.locals.user = null
         next()
     }
 
 }
 
-module.exports = {authControl,userControl}
+module.exports = {authControl, userControl}

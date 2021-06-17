@@ -2,6 +2,7 @@ const dotenv = require('dotenv')
 const express = require('express')
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoutes')
+const workRoutes = require('./routes/workRoutes')
 const cookieParser =  require('cookie-parser')
 const {authControl,userControl} = require('./middleware/authMiddleware')
 
@@ -49,6 +50,9 @@ app.get('/works', authControl, (req,res) => {
 
 //routerları middleware olarak tanımlama
 app.use(authRoutes)
+app.use(workRoutes)
+
+//------------------------------------------------------------
 
 /*cookie oluşturma işlemi
 app.get('/set-cookies',(req,res) => {
