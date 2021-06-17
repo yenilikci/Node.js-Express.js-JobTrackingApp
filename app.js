@@ -3,7 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoutes')
 const cookieParser =  require('cookie-parser')
-const {authControl} = require('./middleware/authMiddleware')
+const {authControl,userControl} = require('./middleware/authMiddleware')
 
 //express uygulaması 
 const app = express()
@@ -33,15 +33,19 @@ mongoose.connect(process.env.dbURI,{
     })) //bağlantı başarılı ise serverı dinle
   .catch((err) => console.log(err)) //hata varsa yazdır
 
+//------------------------------------------------------------
+// * ile bütün sayfalar, userControl'e göre kontrol
+app.get('*', userControl)
+
 //middeware ile birlikte / get 
 app.get('/', authControl, (req,res) => {
     res.render('home')
 })
-
 //middeware ile birlikte /works get 
 app.get('/works', authControl, (req,res) => {
     res.render('works')
 })
+//------------------------------------------------------------
 
 //routerları middleware olarak tanımlama
 app.use(authRoutes)
