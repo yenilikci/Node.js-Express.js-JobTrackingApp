@@ -8,10 +8,10 @@ const authControl = (req,res,next) => {
         jwtoken.verify(token,'yenilikci',(err,result) => {
             if(err){
                 //hata varsa giriş sayfasına geri yönlendir
-                console.log(err.message)
+                //console.log(err.message)
                 res.redirect('/login')
             }else {
-                console.log(result)
+                //console.log(result)
                 next()
             }
         })

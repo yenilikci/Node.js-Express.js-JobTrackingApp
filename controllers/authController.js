@@ -92,3 +92,9 @@ module.exports.login_post = async (req,res) => {
     }
     
 }
+
+//çıkış yapmak için cookie sonlandıralım
+module.exports.logout_get = (req,res) => {
+    res.cookie('jwt','çıkış yapıldı',{maxAge:1})
+    res.redirect('/') //anasayfa -> login
+}
