@@ -43,9 +43,7 @@ app.get('/', authControl, (req,res) => {
     res.render('home')
 })
 //middeware ile birlikte /works get 
-app.get('/works', authControl, (req,res) => {
-    res.render('works')
-})
+//app.get('/works', authControl, (req,res) => { res.render('works') })
 //------------------------------------------------------------
 
 //routerları middleware olarak tanımlama

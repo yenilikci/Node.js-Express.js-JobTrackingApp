@@ -13,4 +13,7 @@ router.get('/work-add', authControl, workController.work_add_get)
 //iş ekleme işlemi, kullanıcı kontrolü ile birlikte
 router.post('/work-add', userControl, workController.work_add_post)
 
+//işleri listeleme
+router.get('/works',authControl,workController.works_get)
+
 module.exports = router

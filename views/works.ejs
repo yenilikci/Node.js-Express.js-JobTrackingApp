@@ -1,36 +1,16 @@
 <%- include('partials/header') %>
 
 <ul class="works">
-    <li class="work">
-        <img src="/icon.png" alt="">
-        <h4>İş Takip Yazılımı</h4>
-        <p>Test edilmekte</p>
-    </li>
-    <li class="work">
-        <img src="/icon.png" alt="">
-        <h4>İş Takip Yazılımı</h4>
-        <p>Test edilmekte</p>
-    </li>
-    <li class="work">
-        <img src="/icon.png" alt="">
-        <h4>İş Takip Yazılımı</h4>
-        <p>Test edilmekte</p>
-    </li>
-    <li class="work">
-        <img src="/icon.png" alt="">
-        <h4>İş Takip Yazılımı</h4>
-        <p>Test edilmekte</p>
-    </li>
-    <li class="work">
-        <img src="/icon.png" alt="">
-        <h4>İş Takip Yazılımı</h4>
-        <p>Test edilmekte</p>
-    </li>
-    <li class="work">
-        <img src="/icon.png" alt="">
-        <h4>İş Takip Yazılımı</h4>
-        <p>Test edilmekte</p>
-    </li>
+    <% if(isler.length>0) { %>
+        <% isler.forEach(is => { %>
+            <li class="work">
+                <img src="/icon.png" alt="">
+                <h4><%= is.baslik %>%></h4>
+            </li>
+        <% }) %>
+    <% } else { %>
+        <div>Henüz iş girilmedi</div>
+    <% } %>
 </ul>
 
 <%- include('partials/footer') %>
